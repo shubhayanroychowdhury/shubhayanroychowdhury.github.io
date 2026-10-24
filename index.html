@@ -97,6 +97,24 @@ h2 i{font-style:normal;color:var(--green)}
 .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
 .btn{border:1px solid var(--green);color:var(--green);padding:10px 20px;border-radius:999px;font-size:14px;font-weight:500;transition:background .2s,color .2s}
 .btn:hover,.btn.f{background:var(--green);color:#000}
+.tl{position:relative;max-width:940px;padding-left:120px}
+.tl::before{content:"";position:absolute;left:50px;top:0;bottom:0;width:3px;border-radius:3px;background:linear-gradient(to bottom,rgb(255,60,90),rgb(40,230,130) 50%,rgb(60,120,255))}
+.tl-item{position:relative;margin-bottom:28px;padding:26px 30px 24px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(8px);overflow:visible;transition:transform .3s,box-shadow .3s,border-color .3s}
+.tl-item::before{content:"";position:absolute;left:24px;right:24px;top:-1px;height:2px;border-radius:2px;background:linear-gradient(to right,rgb(255,60,90),rgb(40,230,130),rgb(60,120,255));opacity:.85}
+.tl-item::after{content:"";position:absolute;left:-70px;top:17px;width:70px;height:1px;background:linear-gradient(to right,rgba(255,255,255,.35),rgba(255,255,255,.08))}
+.tl-item:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.45);box-shadow:0 14px 40px rgba(0,0,0,.5),0 0 30px rgba(34,211,238,.15)}
+.tl-item:last-child{margin-bottom:0}
+.yr-badge{position:absolute;left:-120px;top:2px;width:104px;padding:6px 0;text-align:center;border-radius:999px;background:#000;border:1px solid rgba(255,255,255,.25);font-size:15px;font-weight:700;letter-spacing:1px;color:#fff;transition:background .25s,color .25s,border-color .25s}
+.tl-item:hover .yr-badge{background:var(--green);border-color:var(--green);color:#000}
+.tl-item:hover .ref{color:#fff}
+@media(max-width:600px){.tl{padding-left:0}.tl::before,.tl-item::after{display:none}.tl-item{padding:20px 18px}.yr-badge{position:static;display:inline-block;width:auto;padding:4px 14px;margin-bottom:12px}}
+.ref{margin:0;font-size:16px;line-height:1.7;color:#f2f2f2}
+.ref .me{color:var(--green)}
+.ref em{color:#fff}
+.ref a.doi{color:var(--green);text-decoration:none;border-bottom:1px solid transparent}
+.ref a.doi:hover{border-bottom-color:var(--green)}
+.cbtn{display:inline-flex;align-items:center;gap:8px;margin:16px 12px 0 0;padding:9px 22px;border:2px solid var(--green);border-radius:999px;background:transparent;color:var(--green);font:inherit;font-size:15px;cursor:pointer;transition:background .2s,color .2s}
+.cbtn:hover,.cbtn.ok{background:var(--green);color:#000}
 .tags{display:flex;flex-wrap:wrap;gap:8px}
 .tags span{border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:13px;color:#cfcfd3}
 footer{display:none;padding:28px 0 calc(28px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);color:var(--muted);font-size:13px}
@@ -128,7 +146,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   <div class="wrap">
     <a class="logo" href="#home">S.<span>RoyChowdhury</span></a>
     <nav aria-label="Main">
-      <a href="#about">About</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#publications">Publications</a><a href="#contact">Contact</a>
+      <a href="#about">About</a><a href="#research">Research</a><a href="#publications">Publications</a><a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -196,33 +214,32 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </div>
 </section>
 
-<section class="s" id="projects">
-  <div class="wrap">
-    <h2>Projects &amp; <i>contributions</i></h2>
-    <p class="lead">Agricultural flood monitoring, radar-derived indices and ground deformation.</p>
-    <div class="grid g2">
-      <article class="card"><span class="k">Published research</span><h3>Sentinel-1 Agricultural Flood Descriptor (SAFD)</h3><p>A dual-polarimetric SAR approach for assessing flood-affected agricultural landscapes, using radar-derived descriptors to distinguish flood impacts.</p><a class="more" href="https://doi.org/10.1109/JSTARS.2026.3732511" target="_blank" rel="noopener noreferrer">Read the publication ↗</a></article>
-      <article class="card"><span class="k">Ongoing research</span><h3>Dual-Polarimetric Agricultural Flood Index (DpAFI)</h3><p>A nonlinear transformation-based flood index using Sentinel-1, focused on quantitative flood characterization and temporal variation in agricultural inundation.</p><a class="more" href="#contact">Discuss this research ↗</a></article>
-      <article class="card"><span class="k">InSAR</span><h3>Ground Deformation Monitoring at Joshimath</h3><p>Investigation of ground displacement using Sentinel-1 interferometric observations and geospatial processing workflows.</p><a class="more" href="https://asf.alaska.edu/" target="_blank" rel="noopener noreferrer">Explore SAR data resources ↗</a></article>
-      <article class="card"><span class="k">Earth observation</span><h3>Multitemporal Environmental &amp; Land-Surface Analysis</h3><p>Studies of land-use and land-cover, land-surface temperature and spectral indices to investigate environmental variation.</p><a class="more" href="#skills">View technical toolkit ↗</a></article>
-    </div>
-  </div>
-</section>
-
 <section class="s alt" id="publications">
   <div class="wrap">
-    <h2>Selected <i>publication</i></h2>
-    <p class="lead">A peer-reviewed contribution to SAR-based agricultural flood monitoring.</p>
-    <article class="pub">
-      <small>IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing · 2026</small>
-      <h3>Flood Mapping Using Sentinel-1 Dual-Polarimetric SAR Data in Agricultural Landscapes</h3>
-      <p>Shubhayan Roy Chowdhury, Dipankar Mandal, Abhinav Verma, Gerardo Di Martino and Avik Bhattacharya<br>DOI: 10.1109/JSTARS.2026.3732511</p>
-      <div class="btns">
-        <a class="btn f" href="https://doi.org/10.1109/JSTARS.2026.3732511" target="_blank" rel="noopener noreferrer">View paper ↗</a>
-        <a class="btn" href="https://orcid.org/0000-0003-1958-6032" target="_blank" rel="noopener noreferrer">ORCID profile ↗</a>
-        <a class="btn" href="https://ee-roychowdhuryshubhayan.projects.earthengine.app/view/safd" target="_blank" rel="noopener noreferrer">SAFD web app ↗</a>
-      </div>
-    </article>
+    <h2><i>Publications</i></h2>
+    <p class="lead">Journal articles, conference papers and book chapters.</p>
+    <div class="tl">
+      <article class="tl-item"><span class="yr-badge">2026</span>
+        <p class="ref"><span class="me">Shubhayan Roy Chowdhury</span>, Dipankar Mandal, Abhinav Verma, Gerardo Di Martino and Avik Bhattacharya 2026 “Flood Mapping Using Sentinel-1 Dual-Polarimetric SAR Data in Agricultural Landscapes”. <em>IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing</em>. <a class="doi" href="https://doi.org/10.1109/JSTARS.2026.3732511" target="_blank" rel="noopener noreferrer">(Link)</a></p>
+        <button class="cbtn" type="button" data-copy="@article{chowdhury2026flood,&#10;  author={Chowdhury, Shubhayan Roy and Mandal, Dipankar and Verma, Abhinav and Di Martino, Gerardo and Bhattacharya, Avik},&#10;  title={Flood Mapping Using Sentinel-1 Dual-Polarimetric SAR Data in Agricultural Landscapes},&#10;  journal={IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},&#10;  year={2026},&#10;  doi={10.1109/JSTARS.2026.3732511}&#10;}"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Zm-6 0v2h4V4h-4Z"/></svg><span>Copy BibTeX</span></button><button class="cbtn" type="button" data-copy="Chowdhury, S.R., Mandal, D., Verma, A., Di Martino, G. and Bhattacharya, A. (2026) ‘Flood Mapping Using Sentinel-1 Dual-Polarimetric SAR Data in Agricultural Landscapes’, IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing. doi: 10.1109/JSTARS.2026.3732511"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Zm-6 0v2h4V4h-4Z"/></svg><span>Copy Harvard</span></button>
+      </article>
+      <article class="tl-item"><span class="yr-badge">2025</span>
+        <p class="ref"><span class="me">Chowdhury, S.R.</span>, Verma, A., Bhattacharya, A. and Di Martino, G. 2025 “Agricultural Flood Mapping Using Sentinel-1 Dual-Polarimetric SAR Data”. In <em>2025 IEEE India Geoscience and Remote Sensing Symposium (InGARSS)</em>, pp. 230–233. IEEE. <a class="doi" href="https://scholar.google.com/scholar?q=Agricultural+Flood+Mapping+Using+Sentinel-1+Dual-Polarimetric+SAR+Data" target="_blank" rel="noopener noreferrer">(Link)</a></p>
+        <button class="cbtn" type="button" data-copy="@inproceedings{chowdhury2025agricultural,&#10;  author={Chowdhury, S. R. and Verma, A. and Bhattacharya, A. and Di Martino, G.},&#10;  title={Agricultural Flood Mapping Using Sentinel-1 Dual-Polarimetric SAR Data},&#10;  booktitle={2025 IEEE India Geoscience and Remote Sensing Symposium (InGARSS)},&#10;  year={2025},&#10;  pages={230--233},&#10;  publisher={IEEE}&#10;}"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Zm-6 0v2h4V4h-4Z"/></svg><span>Copy BibTeX</span></button><button class="cbtn" type="button" data-copy="Chowdhury, S.R., Verma, A., Bhattacharya, A. and Di Martino, G. (2025) ‘Agricultural Flood Mapping Using Sentinel-1 Dual-Polarimetric SAR Data’, in 2025 IEEE India Geoscience and Remote Sensing Symposium (InGARSS), pp. 230–233. IEEE."><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Zm-6 0v2h4V4h-4Z"/></svg><span>Copy Harvard</span></button>
+      </article>
+      <article class="tl-item"><span class="yr-badge">2024</span>
+        <p class="ref"><span class="me">Chowdhury, S.R.</span>, Vaka, D.S., Rao, Y.S. and Bhattacharya, A. 2024 “Landslide Deformation Analysis Over Joshimath Region Using The Opensarlab Cloud-Based Environment”. In <em>2024 IEEE India Geoscience and Remote Sensing Symposium (InGARSS)</em>, pp. 1–4. IEEE. <a class="doi" href="https://scholar.google.com/scholar?q=Landslide+Deformation+Analysis+Over+Joshimath+Region+Using+The+Opensarlab+Cloud-Based+Environment" target="_blank" rel="noopener noreferrer">(Link)</a></p>
+        <button class="cbtn" type="button" data-copy="@inproceedings{chowdhury2024landslide,&#10;  author={Chowdhury, S. R. and Vaka, D. S. and Rao, Y. S. and Bhattacharya, A.},&#10;  title={Landslide Deformation Analysis Over Joshimath Region Using The Opensarlab Cloud-Based Environment},&#10;  booktitle={2024 IEEE India Geoscience and Remote Sensing Symposium (InGARSS)},&#10;  year={2024},&#10;  pages={1--4},&#10;  publisher={IEEE}&#10;}"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Zm-6 0v2h4V4h-4Z"/></svg><span>Copy BibTeX</span></button><button class="cbtn" type="button" data-copy="Chowdhury, S.R., Vaka, D.S., Rao, Y.S. and Bhattacharya, A. (2024) ‘Landslide Deformation Analysis Over Joshimath Region Using The Opensarlab Cloud-Based Environment’, in 2024 IEEE India Geoscience and Remote Sensing Symposium (InGARSS), pp. 1–4. IEEE."><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Zm-6 0v2h4V4h-4Z"/></svg><span>Copy Harvard</span></button>
+      </article>
+      <article class="tl-item"><span class="yr-badge">2023</span>
+        <p class="ref"><span class="me">Chowdhury, S.R.</span> and Majumder, A. 2023 “A Study on the Characteristics of Sea Waves at the Mandarmani Sea Beach of West Bengal”. In <em>Environmental Management and Sustainability in India: Case Studies from West Bengal</em>, pp. 153–170. Cham: Springer International Publishing. <a class="doi" href="https://scholar.google.com/scholar?q=A+Study+on+the+Characteristics+of+Sea+Waves+at+the+Mandarmani+Sea+Beach+of+West+Bengal" target="_blank" rel="noopener noreferrer">(Link)</a></p>
+        <button class="cbtn" type="button" data-copy="@incollection{chowdhury2023mandarmani,&#10;  author={Chowdhury, S. R. and Majumder, A.},&#10;  title={A Study on the Characteristics of Sea Waves at the Mandarmani Sea Beach of West Bengal},&#10;  booktitle={Environmental Management and Sustainability in India: Case Studies from West Bengal},&#10;  year={2023},&#10;  pages={153--170},&#10;  publisher={Springer International Publishing},&#10;  address={Cham}&#10;}"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Zm-6 0v2h4V4h-4Z"/></svg><span>Copy BibTeX</span></button><button class="cbtn" type="button" data-copy="Chowdhury, S.R. and Majumder, A. (2023) ‘A Study on the Characteristics of Sea Waves at the Mandarmani Sea Beach of West Bengal’, in Environmental Management and Sustainability in India: Case Studies from West Bengal, pp. 153–170. Cham: Springer International Publishing."><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Zm-6 0v2h4V4h-4Z"/></svg><span>Copy Harvard</span></button>
+      </article>
+      <article class="tl-item"><span class="yr-badge">2023</span>
+        <p class="ref"><span class="me">Chowdhury, S.R.</span>, Bhaumik, P., Sahoo, S., Chanda, A., Nguyen, T.T., Elkhrachy, I. and Minh, N.N. 2023 “The impact of land use and land cover on land surface temperature in an Indian riverine town over a decade and how it varied post-lockdown”. <a class="doi" href="https://scholar.google.com/scholar?q=The+impact+of+land+use+and+land+cover+on+land+surface+temperature+in+an+Indian+riverine+town+over+a+decade+and+how+it+varied+post-lockdown" target="_blank" rel="noopener noreferrer">(Link)</a></p>
+        <button class="cbtn" type="button" data-copy="@misc{chowdhury2023lst,&#10;  author={Chowdhury, S. R. and Bhaumik, P. and Sahoo, S. and Chanda, A. and Nguyen, T. T. and Elkhrachy, I. and Minh, N. N.},&#10;  title={The impact of land use and land cover on land surface temperature in an Indian riverine town over a decade and how it varied post-lockdown},&#10;  year={2023}&#10;}"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Zm-6 0v2h4V4h-4Z"/></svg><span>Copy BibTeX</span></button><button class="cbtn" type="button" data-copy="Chowdhury, S.R., Bhaumik, P., Sahoo, S., Chanda, A., Nguyen, T.T., Elkhrachy, I. and Minh, N.N. (2023) ‘The impact of land use and land cover on land surface temperature in an Indian riverine town over a decade and how it varied post-lockdown’."><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Zm-6 0v2h4V4h-4Z"/></svg><span>Copy Harvard</span></button>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -255,6 +272,16 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <script>
 document.getElementById("year").textContent=new Date().getFullYear();
+
+/* copy BibTeX / Harvard citation */
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".cbtn");
+  if(!b)return;
+  const txt=b.dataset.copy,label=b.querySelector("span"),old=label.textContent;
+  const done=()=>{label.textContent="Copied!";b.classList.add("ok");setTimeout(()=>{label.textContent=old;b.classList.remove("ok")},1600)};
+  const fallback=()=>{const t=document.createElement("textarea");t.value=txt;t.style.cssText="position:fixed;opacity:0";document.body.appendChild(t);t.select();try{document.execCommand("copy");done()}catch(_){}t.remove()};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,fallback);else fallback();
+});
 
 const top_=document.getElementById("top"),hero=document.getElementById("home");
 
