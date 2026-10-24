@@ -38,6 +38,7 @@ h1,h2,h3,p{margin-top:0}
 .tag .w{display:inline-block;color:#fff;border-bottom:3px solid var(--green);padding-bottom:2px;min-width:2ch}
 .tag .caret{display:inline-block;width:2px;height:1em;background:var(--green);margin-left:3px;vertical-align:-.12em;animation:b 1s steps(1) infinite}
 @keyframes b{50%{opacity:0}}
+.tag.quote{font-style:italic;font-weight:300;letter-spacing:.3px;color:#e9e9ec}
 .menu{display:flex;gap:34px;flex-wrap:wrap;margin-bottom:34px}
 .menu a{font-size:19px;color:#b9b9bd;position:relative;padding-bottom:4px;transition:color .2s}
 .menu a:hover,.menu a.on{color:#fff}
@@ -264,7 +265,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   <div class="bars" aria-hidden="true"><span></span><span><em>IIT Bombay</em><em>Microwave Remote Sensing</em></span></div><div class="rim" aria-hidden="true"></div>
   <div class="hero-content">
     <h1><span class="ln"><span class="i">Shubhayan</span></span> <span class="ln"><span>Roy Chowdhury</span></span></h1>
-    <p class="tag">I’m a passionate <span class="w" id="word">researcher</span><span class="caret"></span></p>
+    <p class="tag quote">Keep your love for research alive</p>
     <nav class="menu" aria-label="Sections">
       <a href="#home" class="on">Home</a>
       <a href="#about">About</a>
@@ -526,20 +527,6 @@ document.addEventListener("click",e=>{
 addEventListener("hashchange",()=>route());
 route();
 
-(function(){
-  const el=document.getElementById("word");
-  const words=["researcher","learner","radar enthusiast","flood mapper"];
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches){el.textContent=words[1];return}
-  let w=0,c=0,del=false;
-  (function tick(){
-    const t=words[w];
-    el.textContent=t.slice(0,c);
-    if(!del&&c===t.length){del=true;return setTimeout(tick,1600)}
-    if(del&&c===0){del=false;w=(w+1)%words.length}
-    c+=del?-1:1;
-    setTimeout(tick,del?45:90);
-  })();
-})();
 
 /* Dot-network background with a soft glow: calm, smooth background for every inner page (About, Research, Projects, Publications, Skills, Contact) */
 (function(){
