@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Shubhayan Roy Chowdhury | Research Portfolio</title>
 <meta name="description" content="PhD Research Scholar at IIT Bombay working on SAR remote sensing, radar polarimetry and flood mapping.">
 <meta name="theme-color" content="#000000">
@@ -10,21 +10,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#030303;--bg2:#0c0c0d;--green:#4ade80;--text:#f2f2f2;--muted:#9a9a9f;--line:rgba(255,255,255,.1)}
+:root{--bg:#000;--bg2:#000;--green:#22d3ee;--text:#f2f2f2;--muted:#9a9a9f;--line:rgba(255,255,255,.1);color-scheme:dark}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--text);font-family:"Poppins",system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,p{margin-top:0}
 :focus-visible{outline:2px solid var(--green);outline-offset:3px}
 .wrap{width:min(1100px,calc(100% - 48px));margin:0 auto}
-
-/* HERO */
-.hero{position:relative;min-height:100vh;overflow:hidden;display:flex;align-items:center;background:#000}
+.hero{position:relative;min-height:100vh;overflow:hidden;display:none;align-items:center;background:#000}
+.hero.active{display:flex}
 #net{position:absolute;inset:0;width:100%;height:100%;z-index:1;mix-blend-mode:screen}
 .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.72) 0,rgba(0,0,0,.35) 40%,transparent 65%),radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.6))}
-.photo{position:absolute;top:0;right:0;bottom:0;width:58%;z-index:0;
-  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 45%);mask-image:linear-gradient(to right,transparent 0,#000 45%)}
+.photo{position:absolute;top:0;right:0;bottom:0;width:58%;z-index:0;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 45%);mask-image:linear-gradient(to right,transparent 0,#000 45%)}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.05) brightness(.9)}
 .hero-content{position:relative;z-index:2;padding:0 0 0 clamp(24px,6vw,96px);padding-top:120px}
 .hero h1{font-size:clamp(40px,6.2vw,84px);font-weight:700;letter-spacing:-2px;line-height:1.1;margin-bottom:18px}
@@ -42,19 +40,18 @@ h1,h2,h3,p{margin-top:0}
 .social a:hover{background:var(--green);color:#000;transform:translateY(-3px)}
 .social svg{width:24px;height:24px;fill:currentColor}
 .social b{font-size:14px;font-weight:700}
-
-/* STICKY NAV (appears after hero) */
-.top{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .3s}
+.top{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .3s}
 .top.show{transform:none}
 .top .wrap{display:flex;justify-content:space-between;align-items:center;min-height:60px}
 .top .logo{font-weight:700;font-size:18px}
 .top .logo span{color:var(--green)}
 .top nav{display:flex;gap:24px}
 .top nav a{font-size:14px;color:#b9b9bd}
-.top nav a:hover{color:#fff}
-
-/* SECTIONS */
-section.s{padding:100px 0;border-top:1px solid var(--line)}
+.top nav a:hover,.top nav a.on{color:#fff}
+.top nav a.on{box-shadow:0 2px 0 var(--green)}
+section.s{display:none;min-height:100vh;padding:calc(110px + env(safe-area-inset-top,0px)) 0 100px}
+section.s.active{display:block;animation:pg .45s ease}
+@keyframes pg{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 section.alt{background:var(--bg2)}
 h2{font-size:clamp(28px,4vw,44px);font-weight:600;letter-spacing:-1px;line-height:1.2;margin-bottom:14px}
 h2 i{font-style:normal;color:var(--green)}
@@ -84,9 +81,9 @@ h2 i{font-style:normal;color:var(--green)}
 .btn:hover,.btn.f{background:var(--green);color:#000}
 .tags{display:flex;flex-wrap:wrap;gap:8px}
 .tags span{border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:13px;color:#cfcfd3}
-footer{padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+footer{display:none;padding:28px 0 calc(28px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+body.sub footer{display:block}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-
 @media(max-width:900px){
   .photo{width:100%;opacity:.45;-webkit-mask-image:linear-gradient(to bottom,#000 40%,transparent);mask-image:linear-gradient(to bottom,#000 40%,transparent)}
   .about{grid-template-columns:1fr;gap:34px}
@@ -99,7 +96,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   .social a{width:48px;height:48px}
   .top nav a:nth-child(n+4){display:none}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tag .caret{animation:none}*{transition:none!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tag .caret{animation:none}.s.active{animation:none}*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -115,13 +112,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <main>
 <section class="hero" id="home">
-  <!-- ▼ YOUR PHOTO: put your image file next to this index.html and change the name below ▼ -->
   <div class="photo"><img src="profile.jpg" alt="Shubhayan Roy Chowdhury" onerror="this.style.display='none'"></div>
   <canvas id="net" aria-hidden="true"></canvas>
-
   <div class="hero-content">
     <h1><span class="i">S.</span> Roy Chowdhury</h1>
-    <p class="tag">I'm a passionate <span class="w" id="word">researcher</span><span class="caret"></span></p>
+    <p class="tag">I’m a passionate <span class="w" id="word">researcher</span><span class="caret"></span></p>
     <nav class="menu" aria-label="Sections">
       <a href="#home" class="on">Home</a>
       <a href="#about">About</a>
@@ -132,7 +127,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <a href="https://orcid.org/0000-0003-1958-6032" target="_blank" rel="noopener noreferrer" aria-label="ORCID"><b>iD</b></a>
       <a href="https://github.com/shubhayanroychowdhury" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg></a>
       <a href="https://doi.org/10.1109/JSTARS.2026.3732511" target="_blank" rel="noopener noreferrer" aria-label="Published paper"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8.5 12v1.5h8V12h-8Zm0 3.5V17h8v-1.5h-8Z"/></svg></a>
-      <a href="https://ee-roychowdhuryshubhayan.projects.earthengine.app/view/safd" target="_blank" rel="noopener noreferrer" aria-label="SAFD web app"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 9h-3a15 15 0 0 0-1.2-5.3A8 8 0 0 1 18.9 11ZM12 4c.9 1.2 1.7 3.3 1.9 7h-3.8C10.3 7.3 11.100 5.200 12 4ZM9.300 5.700A15 15 0 0 0 8.100 11h-3a8 8 0 0 1 4.200-5.300ZM5.100 13h3c.1 1.900.5 3.700 1.200 5.300A8 8 0 0 1 5.100 13Zm6.900 7c-.9-1.200-1.700-3.300-1.900-7h3.800c-.2 3.700-1 5.800-1.900 7Zm2.700-1.700c.7-1.600 1.100-3.400 1.200-5.300h3a8 8 0 0 1-4.200 5.300Z"/></svg></a>
+      <a href="https://ee-roychowdhuryshubhayan.projects.earthengine.app/view/safd" target="_blank" rel="noopener noreferrer" aria-label="SAFD web app"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 9h-3a15 15 0 0 0-1.2-5.3A8 8 0 0 1 18.9 11ZM12 4c.9 1.2 1.7 3.3 1.9 7h-3.8C10.3 7.300 11.100 5.200 12 4ZM9.300 5.700A15 15 0 0 0 8.100 11h-3a8 8 0 0 1 4.200-5.300ZM5.100 13h3c.1 1.900.5 3.700 1.200 5.300A8 8 0 0 1 5.100 13Zm6.900 7c-.9-1.200-1.700-3.300-1.900-7h3.800c-.2 3.700-1 5.800-1.900 7Zm2.700-1.700c.7-1.600 1.100-3.400 1.200-5.300h3a8 8 0 0 1-4.200 5.300Z"/></svg></a>
       <a href="#contact" aria-label="Contact"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3V5Zm2 2v.5l7 5 7-5V7H5Zm14 3-7 5-7-5v7h14v-7Z"/></svg></a>
     </div>
   </div>
@@ -159,7 +154,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <section class="s alt" id="research">
   <div class="wrap">
     <h2>Research <i>interests</i></h2>
-    <p class="lead">Radar-based methods to study environmental change, flood processes and the Earth's surface.</p>
+    <p class="lead">Radar-based methods to study environmental change, flood processes and the Earth’s surface.</p>
     <div class="grid">
       <article class="card"><span class="k">SAR</span><h3>Synthetic Aperture Radar</h3><p>Interpreting radar backscatter and polarization information to characterize land surfaces under different conditions.</p></article>
       <article class="card"><span class="k">FLOODS</span><h3>Flood Mapping &amp; Dynamics</h3><p>Mapping inundation, monitoring flood evolution and investigating flood impacts on agricultural landscapes.</p></article>
@@ -216,7 +211,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <section class="s alt" id="contact">
   <div class="wrap">
-    <h2>Let's connect through <i>research</i></h2>
+    <h2>Let’s connect through <i>research</i></h2>
     <p class="lead">Interested in SAR remote sensing, radar polarimetry, flood monitoring or geospatial research? Find me on ORCID or GitHub.</p>
     <div class="btns">
       <a class="btn f" href="https://orcid.org/0000-0003-1958-6032" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
@@ -226,17 +221,36 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 </section>
 </main>
 
-<footer><div class="wrap"><span>© <span id="year">2026</span> Shubhayan Roy Chowdhury</span><a href="#home">Back to top ↑</a></div></footer>
+<footer><div class="wrap"><span>© <span id="year">2026</span> Shubhayan Roy Chowdhury</span><a href="#home">Back to home ↑</a></div></footer>
 
 <script>
 document.getElementById("year").textContent=new Date().getFullYear();
 
-/* sticky nav after hero */
 const top_=document.getElementById("top"),hero=document.getElementById("home");
-const io=new IntersectionObserver(([e])=>top_.classList.toggle("show",!e.isIntersecting),{threshold:.1});
-io.observe(hero);
 
-/* typing words */
+/* page router: the hero is the front page, every other section is its own page */
+const pages=[...document.querySelectorAll("main > section")],navLinks=document.querySelectorAll(".top nav a");
+function route(id){
+  id=id||(location.hash||"#home").slice(1);
+  if(!pages.some(p=>p.id===id))id="home";
+  pages.forEach(p=>p.classList.toggle("active",p.id===id));
+  top_.classList.toggle("show",id!=="home");
+  document.body.classList.toggle("sub",id!=="home");
+  navLinks.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+id));
+  scrollTo(0,0);
+  if(id==="home")dispatchEvent(new Event("resize"));
+}
+document.addEventListener("click",e=>{
+  const a=e.target.closest('a[href^="#"]');
+  if(!a)return;
+  e.preventDefault();
+  const id=a.getAttribute("href").slice(1)||"home";
+  try{location.hash=id}catch(_){}
+  route(id);
+});
+addEventListener("hashchange",()=>route());
+route();
+
 (function(){
   const el=document.getElementById("word");
   const words=["researcher","learner","radar enthusiast","flood mapper"];
@@ -256,7 +270,7 @@ io.observe(hero);
 (function(){
   const cv=document.getElementById("net"),ctx=cv.getContext("2d");
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const NX=64,NZ=46;
+  const NX=64,NZ=46,C="251,146,60"; /* animation colour (orange), independent of the page accent */
   let W,H,hz,S,mx=-1,my=-1,mxs=0,mys=0,mA=0;
   function size(){
     const r=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);
@@ -264,19 +278,18 @@ io.observe(hero);
     hz=H*.36;S=H*.5;
   }
   function frame(now){
+    if(!hero.classList.contains("active")){if(!reduce)requestAnimationFrame(frame);return}
     const t=now/1000;
     mxs+=((mx<0?.5:mx)-mxs)*.08;mys+=((my<0?.5:my)-mys)*.08;mA+=((mx<0?0:1)-mA)*.05;
     ctx.clearRect(0,0,W,H);
     ctx.globalCompositeOperation="lighter";
-    /* build height grid */
     const P=[];
     for(let j=0;j<NZ;j++){
       const z=j/(NZ-1)*2.4,s=1/(.55+z*.7),row=[];
       for(let i=0;i<NX;i++){
         const x=(i/(NX-1)-.5)*3.2;
         let h=.2*(Math.sin(x*2.1+t*.55+Math.sin(z*1.7+t*.3))+.8*Math.sin(z*2.6-t*.5+x*.8)+.35*Math.sin((x+z)*3.4+t*.9));
-        h*=.55+.45*Math.min(1,z*.9+.2);                 /* calmer in the foreground */
-        /* the cursor lifts a soft hill */
+        h*=.55+.45*Math.min(1,z*.9+.2);
         const bx=(mxs-.5)*3.2,bz=.3+(1-mys)*1.8,dd=(x-bx)*(x-bx)+(z-bz)*(z-bz);
         h+=.34*mA*Math.exp(-dd/.12);
         row.push([W*.5+x*S*s*(W>900?1.15:.8),hz+(1-h)*S*s,h,s]);
@@ -285,19 +298,18 @@ io.observe(hero);
     }
     ctx.lineWidth=1;
     for(let j=NZ-1;j>=0;j--){
-      const fade=Math.pow(1-j/NZ,1.2);                   /* far rows fade out */
       for(let i=0;i<NX;i++){
         const p=P[j][i];
-        const hue=152+Math.max(0,p[2]+.05)*190-(p[2]<0?p[2]*-30:0);
-        const al=.12+.55*(1-fade*.0)*(1-j/NZ)*(.55+Math.min(1,Math.abs(p[2])*3));
+        const al=.12+.55*(1-j/NZ)*(.55+Math.min(1,Math.abs(p[2])*3));
+        const hue=((i/NX)*240+p[2]*260+t*35)%360; /* red → green → blue mix, drifting over time */
         if(i<NX-1){
           const q=P[j][i+1];
-          ctx.strokeStyle="hsla("+hue+",85%,"+(48+25*Math.max(0,p[2]*3))+"%,"+al+")";
+          ctx.strokeStyle="hsla("+hue+",100%,58%,"+al+")";
           ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);ctx.stroke();
         }
         if(i%3===0&&j<NZ-1){
           const q=P[j+1][i];
-          ctx.strokeStyle="hsla("+hue+",80%,52%,"+al*.45+")";
+          ctx.strokeStyle="hsla("+hue+",100%,58%,"+al*.45+")";
           ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);ctx.stroke();
         }
       }
