@@ -21,7 +21,8 @@ h1,h2,h3,p{margin-top:0}
 
 /* HERO */
 .hero{position:relative;min-height:100vh;overflow:hidden;display:flex;align-items:center;background:#000}
-#net{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+#net{position:absolute;inset:0;width:100%;height:100%;z-index:1;mix-blend-mode:screen}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.72) 0,rgba(0,0,0,.35) 40%,transparent 65%),radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.6))}
 .photo{position:absolute;top:0;right:0;bottom:0;width:58%;z-index:0;
   -webkit-mask-image:linear-gradient(to right,transparent 0,#000 45%);mask-image:linear-gradient(to right,transparent 0,#000 45%)}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.05) brightness(.9)}
@@ -251,38 +252,53 @@ io.observe(hero);
   })();
 })();
 
-/* particle network */
+/* Abstract flow field: thousands of light trails following an invisible current */
 (function(){
   const cv=document.getElementById("net"),ctx=cv.getContext("2d");
-  let W,H,pts=[],mouse={x:-999,y:-999};
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const TAU=Math.PI*2;
+  let W,H,ps=[],mx=-999,my=-999,t=0;
+  function spawn(p){p.x=Math.random()*W;p.y=Math.random()*H;p.life=80+Math.random()*180;p.px=p.x;p.py=p.y;return p}
   function size(){
-    const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;
+    const r=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);
     W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);
-    const n=Math.min(110,Math.floor(W*H/14000));
-    pts=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:1+Math.random()*2.2}));
-  }
-  function draw(){
+    const n=Math.min(1100,Math.floor(W*H/1500));
+    ps=Array.from({length:n},()=>spawn({}));
     ctx.clearRect(0,0,W,H);
-    for(const p of pts){
-      if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
-    }
-    for(let i=0;i<pts.length;i++){
-      const a=pts[i];
-      for(let j=i+1;j<pts.length;j++){
-        const b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);
-        if(d<150){ctx.strokeStyle="rgba(255,255,255,"+(.22*(1-d/150))+")";ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}
-      }
-      const m=Math.hypot(a.x-mouse.x,a.y-mouse.y);
-      if(m<170){ctx.strokeStyle="rgba(74,222,128,"+(.5*(1-m/170))+")";ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke()}
-      ctx.fillStyle="rgba(255,255,255,.4)";ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,6.283);ctx.fill();
-    }
-    if(!reduce)requestAnimationFrame(draw);
   }
-  hero.addEventListener("mousemove",e=>{const r=cv.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});
-  hero.addEventListener("mouseleave",()=>{mouse.x=mouse.y=-999});
-  addEventListener("resize",size);
-  size();draw();
+  function angle(x,y){
+    return (Math.sin(x*.0021+t*.11)*Math.cos(y*.0027-t*.09)*1.25+Math.sin((x+y)*.0011+t*.07)*.9)*TAU*.6;
+  }
+  function step(){
+    t+=.016;
+    /* slowly fade old trails so the picture keeps moving */
+    ctx.globalCompositeOperation="destination-out";
+    ctx.fillStyle="rgba(0,0,0,.045)";ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation="lighter";
+    ctx.lineWidth=1.1;
+    for(const p of ps){
+      let a=angle(p.x,p.y);
+      const dx=p.x-mx,dy=p.y-my,d2=dx*dx+dy*dy;
+      /* cursor makes the current swirl around it */
+      if(d2<28000){const k=1-d2/28000;a+=k*2.2;p.x+=dx/Math.sqrt(d2+1)*k*1.6;p.y+=dy/Math.sqrt(d2+1)*k*1.6}
+      p.px=p.x;p.py=p.y;
+      p.x+=Math.cos(a)*1.35;p.y+=Math.sin(a)*1.35;
+      /* colour follows direction: green → teal → gold */
+      const hue=150+((Math.sin(a*1.5)+1)/2)*(a>1.2?-110:38);
+      const edge=Math.min(1,p.life/30);
+      ctx.strokeStyle="hsla("+hue+",80%,60%,"+(.5*edge)+")";
+      ctx.beginPath();ctx.moveTo(p.px,p.py);ctx.lineTo(p.x,p.y);ctx.stroke();
+      if(--p.life<0||p.x<-10||p.x>W+10||p.y<-10||p.y>H+10)spawn(p);
+    }
+    ctx.globalCompositeOperation="source-over";
+  }
+  function loop(){step();requestAnimationFrame(loop)}
+  hero.addEventListener("mousemove",e=>{const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top});
+  hero.addEventListener("mouseleave",()=>{mx=my=-999});
+  addEventListener("resize",()=>{size();for(let i=0;i<140;i++)step()});
+  size();
+  for(let i=0;i<140;i++)step(); /* pre-draw so it never starts empty */
+  if(!reduce)loop();
 })();
 </script>
 </body>
