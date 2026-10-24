@@ -36,10 +36,18 @@ h1,h2,h3,p{margin-top:0}
 .menu a:hover,.menu a.on{color:#fff}
 .menu a.on::after{content:"";position:absolute;left:0;bottom:-2px;width:26px;height:3px;border-radius:2px;background:var(--green)}
 .social{display:flex;gap:14px;flex-wrap:wrap}
-.social a{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;transition:background .2s,transform .2s}
-.social a:hover{background:var(--green);color:#000;transform:translateY(-3px)}
+.social>a{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;transition:background .2s,transform .2s}
+.social>a:hover{background:var(--green);color:#000;transform:translateY(-3px)}
 .social svg{width:24px;height:24px;fill:currentColor}
 .social b{font-size:14px;font-weight:700}
+.mailwrap{position:relative}
+.mailbtn{width:56px;height:56px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:inherit;display:grid;place-items:center;cursor:pointer;transition:background .2s,transform .2s}
+.mailbtn:hover,.mailbtn[aria-expanded="true"]{background:var(--green);color:#000;transform:translateY(-3px)}
+.mailbtn svg{width:24px;height:24px;fill:currentColor}
+.mailpop{position:absolute;left:0;top:calc(100% + 12px);z-index:5;display:flex;flex-direction:column;gap:4px;padding:10px;min-width:max-content;border:1px solid rgba(34,211,238,.4);border-radius:14px;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);box-shadow:0 10px 30px rgba(0,0,0,.6);animation:pg .25s ease}
+.mailpop[hidden]{display:none}
+.mailpop a{padding:8px 14px;border-radius:9px;font-size:15px;color:#f2f2f2}
+.mailpop a:hover{background:rgba(34,211,238,.15);color:var(--green)}
 .top{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .3s}
 .top.show{transform:none}
 .top .wrap{display:flex;justify-content:space-between;align-items:center;min-height:60px}
@@ -138,7 +146,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   .about-head{flex-direction:column;align-items:flex-start}
   .avatar{width:140px;height:140px}
   .menu{gap:20px}.menu a{font-size:16px}
-  .social a{width:48px;height:48px}
+  .social>a,.mailbtn{width:48px;height:48px}
+  .mailpop a{font-size:13px}
   .top nav a:nth-child(n+4){display:none}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tag .caret{animation:none}.s.active{animation:none}*{transition:none!important}}
@@ -152,7 +161,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   <div class="wrap">
     <a class="logo" href="#home">S.<span>RoyChowdhury</span></a>
     <nav aria-label="Main">
-      <a href="#about">About</a><a href="#research">Research</a><a href="#publications">Publications</a><a href="#contact">Contact</a>
+      <a href="#about">About</a><a href="#publications">Publications</a>
     </nav>
   </div>
 </header>
@@ -167,15 +176,19 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     <nav class="menu" aria-label="Sections">
       <a href="#home" class="on">Home</a>
       <a href="#about">About</a>
-      <a href="#research">Research</a>
+      
       <a href="#publications">Publications</a>
     </nav>
     <div class="social">
-      <a href="https://orcid.org/0000-0003-1958-6032" target="_blank" rel="noopener noreferrer" aria-label="ORCID"><b>iD</b></a>
-      <a href="https://github.com/shubhayanroychowdhury" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg></a>
-      <a href="https://doi.org/10.1109/JSTARS.2026.3732511" target="_blank" rel="noopener noreferrer" aria-label="Published paper"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8.5 12v1.5h8V12h-8Zm0 3.5V17h8v-1.5h-8Z"/></svg></a>
-      <a href="https://ee-roychowdhuryshubhayan.projects.earthengine.app/view/safd" target="_blank" rel="noopener noreferrer" aria-label="SAFD web app"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 9h-3a15 15 0 0 0-1.2-5.3A8 8 0 0 1 18.9 11ZM12 4c.9 1.2 1.7 3.3 1.9 7h-3.8C10.3 7.300 11.100 5.200 12 4ZM9.300 5.700A15 15 0 0 0 8.100 11h-3a8 8 0 0 1 4.200-5.300ZM5.100 13h3c.1 1.900.5 3.700 1.200 5.300A8 8 0 0 1 5.100 13Zm6.900 7c-.9-1.200-1.700-3.300-1.900-7h3.800c-.2 3.700-1 5.800-1.900 7Zm2.700-1.700c.7-1.600 1.100-3.400 1.200-5.300h3a8 8 0 0 1-4.200 5.300Z"/></svg></a>
-      <a href="#contact" aria-label="Contact"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3V5Zm2 2v.5l7 5 7-5V7H5Zm14 3-7 5-7-5v7h14v-7Z"/></svg></a>
+      <a href="https://orcid.org/0000-0003-1958-6032" target="_blank" rel="noopener noreferrer" aria-label="ORCID" title="ORCID"><b>iD</b></a>
+      <a href="https://www.linkedin.com/in/shubhayan-roy-chowdhury-87206927b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1v5.46h-4v-4.84c0-1.16-.02-2.64-1.61-2.64-1.61 0-1.86 1.26-1.86 2.56v4.92h-4v-11Z"/></svg></a>
+      <div class="mailwrap">
+        <button type="button" class="mailbtn" aria-label="Email" title="Email" aria-expanded="false" aria-controls="mailpop"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3V5Zm2 2v.5l7 5 7-5V7H5Zm14 3-7 5-7-5v7h14v-7Z"/></svg></button>
+        <div class="mailpop" id="mailpop" hidden>
+          <a href="mailto:roychowdhuryshubhayan@gmail.com">roychowdhuryshubhayan@gmail.com</a>
+          <a href="mailto:s.roychowdhury@iitb.ac.in">s.roychowdhury@iitb.ac.in</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -201,21 +214,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
         <div class="box">Radar Polarimetry</div>
         <div class="box">Flood Mapping</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="s alt" id="research">
-  <div class="wrap">
-    <h2>Research <i>interests</i></h2>
-    <p class="lead">Radar-based methods to study environmental change, flood processes and the Earth’s surface.</p>
-    <div class="grid">
-      <article class="card"><span class="k">SAR</span><h3>Synthetic Aperture Radar</h3><p>Interpreting radar backscatter and polarization information to characterize land surfaces under different conditions.</p></article>
-      <article class="card"><span class="k">FLOODS</span><h3>Flood Mapping &amp; Dynamics</h3><p>Mapping inundation, monitoring flood evolution and investigating flood impacts on agricultural landscapes.</p></article>
-      <article class="card"><span class="k">POLSAR</span><h3>Radar Polarimetry</h3><p>Developing dual-polarimetric descriptors to understand changes in radar scattering responses.</p></article>
-      <article class="card"><span class="k">INSAR</span><h3>Surface Deformation</h3><p>Investigating ground displacement and terrain change using multitemporal interferometric SAR.</p></article>
-      <article class="card"><span class="k">TIME SERIES</span><h3>Temporal Earth Observation</h3><p>Analysing multitemporal geospatial data to see how environmental signals evolve through time.</p></article>
-      <article class="card"><span class="k">GEOAI</span><h3>Geospatial Analytics</h3><p>Integrating remote sensing, spatial analysis and computational methods for environmental applications.</p></article>
     </div>
   </div>
 </section>
@@ -265,16 +263,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </div>
 </section>
 
-<section class="s alt" id="contact">
-  <div class="wrap">
-    <h2>Let’s connect through <i>research</i></h2>
-    <p class="lead">Interested in SAR remote sensing, radar polarimetry, flood monitoring or geospatial research? Find me on ORCID or GitHub.</p>
-    <div class="btns">
-      <a class="btn f" href="https://orcid.org/0000-0003-1958-6032" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
-      <a class="btn" href="https://github.com/shubhayanroychowdhury" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-    </div>
-  </div>
-</section>
 </main>
 
 <footer><div class="wrap"><span>© <span id="year">2026</span> Shubhayan Roy Chowdhury</span><a href="#home">Back to home ↑</a></div></footer>
@@ -295,6 +283,16 @@ document.addEventListener("click",e=>{
     if(show){void it.offsetWidth;it.classList.add("show-in")}
   });
 });
+
+/* email icon: click to show both addresses */
+(function(){
+  const btn=document.querySelector(".mailbtn"),pop=document.getElementById("mailpop");
+  if(!btn)return;
+  const set=o=>{pop.hidden=!o;btn.setAttribute("aria-expanded",o)};
+  btn.addEventListener("click",e=>{e.stopPropagation();set(pop.hidden)});
+  document.addEventListener("click",e=>{if(!e.target.closest(".mailwrap"))set(false)});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")set(false)});
+})();
 
 /* copy BibTeX / Harvard citation */
 document.addEventListener("click",e=>{
