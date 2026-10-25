@@ -264,6 +264,22 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .hero.replay *,.hero.replay::before{animation-name:none!important}
 @media(max-width:600px){.bars span{height:4.5vh}.bars em{font-size:9px;letter-spacing:.25em}}
 @media(prefers-reduced-motion:reduce){.bars span{transform:none;animation:none}.bars em,.hero .tag,.hero .menu,.hero .social{opacity:1;animation:none}.hero h1 .ln>span{transform:none;animation:none}.photo,.flare,.sweep{animation:none}.flare,.sweep{display:none}}
+.news{margin-top:30px;max-width:560px;opacity:0;animation:fadeup 1s ease 2.6s forwards}
+.news-head{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#cfcfd3;margin-bottom:10px}
+.news-head .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(34,211,238,.6);animation:ping 2s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(34,211,238,.55)}100%{box-shadow:0 0 0 10px rgba(34,211,238,0)}}
+.news-item{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:14px 18px 14px 14px;border:1px solid rgba(255,255,255,.12);border-left:3px solid var(--green);border-radius:12px;background:rgba(0,0,0,.45);backdrop-filter:blur(10px);transition:border-color .25s,background .25s,transform .25s}
+.news-item:hover{border-color:rgba(34,211,238,.6);border-left-color:var(--green);background:rgba(0,0,0,.6);transform:translateX(4px)}
+.news-date{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:58px;padding:8px 6px;border-radius:9px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.35);font-size:11px;color:#9adfea;line-height:1.2}
+.news-date b{font-size:16px;color:var(--green);font-weight:700}
+.news-body{display:flex;flex-direction:column;gap:2px;min-width:0}
+.news-tag{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
+.news-title{font-size:14.5px;font-weight:500;color:#f2f2f2;line-height:1.45}
+.news-venue{font-size:12px;color:#9a9a9f;font-style:italic;line-height:1.45}
+.news-go{font-size:18px;color:var(--green);transition:transform .25s}
+.news-item:hover .news-go{transform:translate(2px,-2px)}
+@media(max-width:600px){.news{margin-top:24px}.news-item{gap:12px;padding:12px}.news-title{font-size:13.5px}.news-go{display:none}}
+@media(prefers-reduced-motion:reduce){.news{opacity:1;animation:none}.news-head .dot{animation:none}}
 </style>
 </head>
 <body>
@@ -308,6 +324,18 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
         </div>
       </div>
     </div>
+    <aside class="news" aria-label="News">
+      <div class="news-head"><span class="dot" aria-hidden="true"></span>News</div>
+      <a class="news-item" href="https://doi.org/10.1109/JSTARS.2026.3732511" target="_blank" rel="noopener noreferrer">
+        <span class="news-date"><b>Aug</b>2026</span>
+        <span class="news-body">
+          <span class="news-tag">Journal paper accepted</span>
+          <span class="news-title">Flood Mapping Using Sentinel-1 Dual-Polarimetric SAR Data in Agricultural Landscapes</span>
+          <span class="news-venue">IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing (J-STARS)</span>
+        </span>
+        <span class="news-go" aria-hidden="true">↗</span>
+      </a>
+    </aside>
   </div>
 </section>
 
@@ -425,7 +453,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 </svg></div>
       </div>
       <div class="ri-pane" data-i="2">
-        <div class="slide slide-text"><span class="k">Research interest</span><h4>Radar Polarimetry</h4><p>Radar polarimetry studies how the polarisation of a radar wave changes when it scatters from a target. Comparing channels such as VV and VH reveals the type of scattering.</p></div>
+        <div class="slide slide-text"><span class="k">Research interest</span><h4>Radar Polarimetry</h4><p>Radar polarimetry studies how the polarisation of a radar wave changes when it scatters from a target. Comparing channels such as VV and VH reveals the type of scattering, which helps tell apart soil, crops, water and buildings.</p></div>
         <div class="slide slide-media"><svg viewBox="0 0 480 300" role="img" aria-label="Animation: radar waves scatter off a smooth surface, a crop canopy and a building, each giving a different mix of VV and VH polarisation">
 <rect width="480" height="300" fill="#04070a"/>
 <g font-family="Poppins,system-ui,sans-serif" font-size="11" fill="#cbd5e1">
@@ -474,7 +502,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 </svg></div>
       </div>
       <div class="ri-pane" data-i="3">
-        <div class="slide slide-text"><span class="k">Research interest</span><h4>Flood Mapping</h4><p>Flood mapping identifies where and how far water has spread during a flood. Because SAR sees through the clouds that usually come with floods, it is well suited to rapid mapping.</p></div>
+        <div class="slide slide-text"><span class="k">Research interest</span><h4>Flood Mapping</h4><p>Flood mapping identifies where and how far water has spread during a flood. Because SAR sees through the clouds that usually come with floods, it is well suited to rapid mapping. In farmland, changes in radar backscatter help separate flooded crops from dry fields.</p></div>
         <div class="slide slide-media"><svg viewBox="0 0 480 300" role="img" aria-label="Animation: a radar image slider compares a field mosaic before and after a flood; flooded fields appear dark and are outlined">
 <defs>
  <filter id="flSpk" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
@@ -490,8 +518,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <line x1="0" y1="20" x2="0" y2="280" stroke="#fff" stroke-width="2"><animate attributeName="x1" values="0;480;480;0;0" keyTimes="0;.42;.6;.95;1" dur="9s" repeatCount="indefinite"/><animate attributeName="x2" values="0;480;480;0;0" keyTimes="0;.42;.6;.95;1" dur="9s" repeatCount="indefinite"/></line>
 <rect x="0" y="0" width="480" height="20" fill="#04070a"/><rect x="0" y="280" width="480" height="20" fill="#04070a"/>
 <g font-family="Poppins,system-ui,sans-serif" font-size="11">
- <text x="8" y="14" fill="#cbd5e1">Example</text>
- <text x="8" y="294" fill="#e5e7eb">◧ <tspan fill="#cbd5e1">before flood</tspan>  →  <tspan fill="#22d3ee">after flood: water looks dark, flooded pixels outlined</tspan></text>
+ <text x="8" y="14" fill="#cbd5e1">Radar image of farmland</text>
+ <text x="8" y="294" fill="#e5e7eb">◧ <tspan fill="#cbd5e1">before flood</tspan>  →  <tspan fill="#22d3ee">after flood: water looks dark, flooded fields outlined</tspan></text>
 </g>
 </svg></div>
       </div>
