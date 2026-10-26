@@ -43,7 +43,7 @@ h1,h2,h3,p{margin-top:0}
 .menu a{font-size:19px;color:#b9b9bd;position:relative;padding-bottom:4px;transition:color .2s}
 .menu a:hover,.menu a.on{color:#fff}
 .menu a.on::after{content:"";position:absolute;left:0;bottom:-2px;width:26px;height:3px;border-radius:2px;background:var(--green)}
-.social{display:flex;gap:14px;flex-wrap:wrap}
+.social{position:relative;z-index:20;display:flex;gap:14px;flex-wrap:wrap}
 .social>a{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;transition:background .2s,transform .2s}
 .social>a:hover{background:var(--green);color:#000;transform:translateY(-3px)}
 .social svg{width:24px;height:24px;fill:currentColor}
@@ -52,10 +52,15 @@ h1,h2,h3,p{margin-top:0}
 .mailbtn{width:56px;height:56px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:inherit;display:grid;place-items:center;cursor:pointer;transition:background .2s,transform .2s}
 .mailbtn:hover,.mailbtn[aria-expanded="true"]{background:var(--green);color:#000;transform:translateY(-3px)}
 .mailbtn svg{width:24px;height:24px;fill:currentColor}
-.mailpop{position:absolute;left:0;top:calc(100% + 12px);z-index:5;display:flex;flex-direction:column;gap:4px;padding:10px;min-width:max-content;border:1px solid rgba(34,211,238,.4);border-radius:14px;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);box-shadow:0 10px 30px rgba(0,0,0,.6);animation:pg .25s ease}
+.mailpop{position:absolute;left:0;top:calc(100% + 12px);z-index:30;display:flex;flex-direction:column;gap:4px;padding:10px;min-width:max-content;border:1px solid rgba(34,211,238,.4);border-radius:14px;background:#0a0d10;box-shadow:0 10px 30px rgba(0,0,0,.6);animation:pg .25s ease}
 .mailpop[hidden]{display:none}
 .mailpop a{padding:8px 14px;border-radius:9px;font-size:15px;color:#f2f2f2}
 .mailpop a:hover{background:rgba(34,211,238,.15);color:var(--green)}
+.mrow{display:flex;align-items:center;gap:6px}
+.mailpop a{user-select:text;-webkit-user-select:text}
+.mcopy{flex:none;font:inherit;font-size:12px;font-weight:500;padding:5px 11px;border-radius:999px;border:1px solid rgba(34,211,238,.45);background:transparent;color:var(--green);cursor:pointer;transition:background .2s,color .2s}
+.mcopy:hover,.mcopy.ok{background:var(--green);color:#000}
+@media(max-width:600px){.mailwrap{position:static}.mailpop{min-width:0;max-width:calc(100vw - 48px)}.mailpop{padding:8px}.mailpop a{font-size:12px;padding:8px 8px;word-break:break-all}.mcopy{padding:4px 9px;font-size:11px}}
 .top{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .3s}
 .top.show{transform:none}
 .top .wrap{display:flex;justify-content:space-between;align-items:center;min-height:60px}
@@ -264,7 +269,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .hero.replay *,.hero.replay::before{animation-name:none!important}
 @media(max-width:600px){.bars span{height:4.5vh}.bars em{font-size:9px;letter-spacing:.25em}}
 @media(prefers-reduced-motion:reduce){.bars span{transform:none;animation:none}.bars em,.hero .tag,.hero .menu,.hero .social{opacity:1;animation:none}.hero h1 .ln>span{transform:none;animation:none}.photo,.flare,.sweep{animation:none}.flare,.sweep{display:none}}
-.news{margin-top:30px;max-width:560px;opacity:0;animation:fadeup 1s ease 2.6s forwards}
+.news{margin-top:56px;max-width:560px;opacity:0;animation:fadeup 1s ease 2.6s forwards}
 .news-head{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#cfcfd3;margin-bottom:10px}
 .news-head .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(34,211,238,.6);animation:ping 2s ease-out infinite}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(34,211,238,.55)}100%{box-shadow:0 0 0 10px rgba(34,211,238,0)}}
@@ -278,7 +283,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .news-venue{font-size:12px;color:#9a9a9f;font-style:italic;line-height:1.45}
 .news-go{font-size:18px;color:var(--green);transition:transform .25s}
 .news-item:hover .news-go{transform:translate(2px,-2px)}
-@media(max-width:600px){.news{margin-top:24px}.news-item{gap:12px;padding:12px}.news-title{font-size:13.5px}.news-go{display:none}}
+@media(max-width:600px){.news{margin-top:44px}.news-item{gap:12px;padding:12px}.news-title{font-size:13.5px}.news-go{display:none}}
 @media(prefers-reduced-motion:reduce){.news{opacity:1;animation:none}.news-head .dot{animation:none}}
 </style>
 </head>
@@ -319,8 +324,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <div class="mailwrap">
         <button type="button" class="mailbtn" aria-label="Email" title="Email" aria-expanded="false" aria-controls="mailpop"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3V5Zm2 2v.5l7 5 7-5V7H5Zm14 3-7 5-7-5v7h14v-7Z"/></svg></button>
         <div class="mailpop" id="mailpop" hidden>
-          <a href="mailto:roychowdhuryshubhayan@gmail.com">roychowdhuryshubhayan@gmail.com</a>
-          <a href="mailto:s.roychowdhury@iitb.ac.in">s.roychowdhury@iitb.ac.in</a>
+          <div class="mrow"><a href="mailto:roychowdhuryshubhayan@gmail.com">roychowdhuryshubhayan@gmail.com</a><button type="button" class="mcopy" data-mail="roychowdhuryshubhayan@gmail.com">Copy</button></div>
+          <div class="mrow"><a href="mailto:s.roychowdhury@iitb.ac.in">s.roychowdhury@iitb.ac.in</a><button type="button" class="mcopy" data-mail="s.roychowdhury@iitb.ac.in">Copy</button></div>
         </div>
       </div>
     </div>
@@ -730,6 +735,16 @@ document.addEventListener("click",e=>{
   if(canHover){wrap.addEventListener("mouseleave",()=>{t=setTimeout(hide,350)});wrap.addEventListener("mouseenter",()=>clearTimeout(t))}
   document.addEventListener("keydown",e=>{if(e.key==="Escape")hide()});
 })();
+
+/* copy an email address from the popup */
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".mcopy");
+  if(!b)return;
+  e.stopPropagation();
+  const txt=b.dataset.mail,done=()=>{b.textContent="Copied";b.classList.add("ok");setTimeout(()=>{b.textContent="Copy";b.classList.remove("ok")},1600)};
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(b.previousElementSibling);const sel=getSelection();sel.removeAllRanges();sel.addRange(r);try{document.execCommand("copy");done()}catch(_){}};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,fallback);else fallback();
+});
 
 /* copy BibTeX / Harvard citation */
 document.addEventListener("click",e=>{
